@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "prog_3-finish-work",
+  "version": "1.0.0",
+  "main": "danger.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeronPetrosyam/prog_2-finish-work.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NeronPetrosyam/prog_2-finish-work/issues"
+  },
+  "homepage": "https://github.com/NeronPetrosyam/prog_2-finish-work#readme",
+  "description": ""
+}

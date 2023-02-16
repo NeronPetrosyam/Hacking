@@ -1,8 +1,8 @@
 
 
 
-
-class PredatorEater extends Parent{
+var Parent = require("./parent")
+module.exports = class PredatorEater extends Parent{
     constructor(x, y) {
        super(x,y)
         this.energy = 8
@@ -11,8 +11,8 @@ class PredatorEater extends Parent{
     
 
     mul() {
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+       
+        var newCell = this.random(4);
 
         if (newCell) {
             var newX = newCell[0];
@@ -27,8 +27,8 @@ class PredatorEater extends Parent{
 
     move() {
         this.energy--
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+      
+        var newCell = this.random(0);
         if (newCell && this.energy >= 0) {
             var newX = newCell[0];
             var newY = newCell[1];
@@ -42,9 +42,9 @@ class PredatorEater extends Parent{
     }
 
     eat() {
-        var emptyCells = this.chooseCell(3);
+       ;
         
-        var newCell = random(emptyCells);
+        var newCell = this.random(3);
         if (newCell) {
             this.energy++
             var newX = newCell[0];

@@ -1,4 +1,5 @@
-class Danger extends Parent {
+var Parent = require("./parent")
+module.exports = class Danger extends Parent {
     constructor(x, y) {
      super(x,y)
         this.multiply = 0
@@ -7,8 +8,8 @@ class Danger extends Parent {
 
     mul() {
         this.multiply++;
-        var emptyCells = this.chooseCell(0);
-        var newCell = random(emptyCells);
+        
+        var newCell = this.random(0);
 
         if (newCell && this.multiply >= 20) {
             var newX = newCell[0];
