@@ -1,5 +1,5 @@
-var Parent = require("./parent")
-module.exports = class GrassEater extends Parent {
+
+class GrassEater extends Parent {
     constructor(x, y) {
         super(x,y)
         this.energy = 20

@@ -1,5 +1,5 @@
-var Parent = require("./parent")
-module.exports = class Danger extends Parent {
+
+ class Danger extends Parent {
     constructor(x, y) {
      super(x,y)
         this.multiply = 0
