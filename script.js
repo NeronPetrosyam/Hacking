@@ -1,5 +1,7 @@
+var weather = document.getElementById("weather")
 function generate(matLen, gr, grEat, pr, prEat, dn) {
     let matrix = []
+    
     for (let i = 0; i < matLen; i++) {
         matrix[i] = []
         for (let j = 0; j < matLen; j++) {
@@ -48,7 +50,7 @@ function generate(matLen, gr, grEat, pr, prEat, dn) {
 }
 
 
-var matrix = generate(30, 200, 100, 100, 40, 50)
+var matrix = generate(30, 20, 30, 30, 30, 30)
 
 let socket = io()
 var side = 15;
@@ -58,11 +60,70 @@ let predatorArr = []
 let predatorEaterArr = []
 let dangerArr = []
 
+var grassButton = document.getElementById('grassButton');
+var grassEaterButton = document.getElementById('grassEaterButton');
+var predatorButton = document.getElementById('predatorButton');
+var predatorEaterButton = document.getElementById('predatorEaterButton');
+var dangerButton = document.getElementById('dangerButton');
 
+
+
+// function addGrass() {
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+//     if (matrix[y][x] == 1) {
+//         let gr = new Grass(x, y)
+//         grassArr.push(gr)
+//     }
+// }
+//     }
+// }
+// function addGrassEater() {
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+//     if (matrix[y][x] == 2) {
+//         let gr = new GrassEater(x, y)
+//         grassEaterArr.push(gr)
+//     }
+// }
+//     }
+    
+// }
+// function addPredator() {
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+//     if (matrix[y][x] == 3) {
+//         let gr = new Predator(x, y)
+//         predatorArr.push(gr)
+//     }
+// }
+//     }
+// }
+// function addPredatorEater() {
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+//     if (matrix[y][x] == 4) {
+//         let gr = new PredatorEater(x, y)
+//         predatorEaterArr.push(gr)
+//     }
+// }
+//     }
+//    console.log(1);
+// }
+// function addDanger() {
+//     for (var y = 0; y < matrix.length; y++) {
+//         for (var x = 0; x < matrix[y].length; x++) {
+//     if (matrix[y][x] == 5) {
+//         let gr = new Danger(x, y)
+//         dangerArr.push(gr)
+//     }
+// }
+//     }
+// }
 
 
 function setup() {
-    frameRate(5);
+    frameRate(4);
     createCanvas(matrix[0].length * side, matrix.length * side);
     createCanvas(450, 450)
     background('grey');
@@ -97,15 +158,40 @@ function setup() {
 
 }
 
+var idx = 0;
+const seasons = 
+[{ season: 'spring', grassColor: 'green', predatorColor: 'red' , predatorEaterColor: 'blue' }, 
+{ season: 'summer',  grassColor: 'lightgreen', predatorColor: 'darkred' , predatorEaterColor: 'blue' }, 
+{ season: 'autumn',  grassColor: 'green', predatorColor: 'red' , predatorEaterColor: 'blue'}, 
+{ season: 'winter',  grassColor: 'white',  predatorColor: 'violet' , predatorEaterColor: 'blue'}] ;
+// ['spring', 'summer', 'autumn', 'winter'];
+
 function draw() {
+    const { season, grassColor, predatorColor, predatorEaterColor,  } = seasons[idx];
     if(frameCount % 60 == 0)
-        socket.emit('sned data','stat')
+        socket.emit('sned data','stat');
+        if (frameCount % 32 === 0) {
+            idx ++;
+            if(idx === 4) {
+                idx = 0;
+            }
+        }
+        weather.innerHTML = season;
+      
+        
+
+        
+      
+      
+        
 
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
-            if (matrix[y][x] == 1) {
-                fill("green");
+            
+
+             if (matrix[y][x] == 1) {
+                fill(grassColor);
             }
             else if (matrix[y][x] == 0) {
                 fill("grey");
@@ -114,14 +200,16 @@ function draw() {
                 fill("yellow");
             }
             else if (matrix[y][x] == 3) {
-                fill("red");
+                fill(predatorColor);
             }
             else if (matrix[y][x] == 4) {
-                fill("brown");
+                fill(predatorEaterColor);
             }
             else if (matrix[y][x] == 5) {
                 fill("black")
             }
+
+
 
             rect(x * side, y * side, side, side);
 

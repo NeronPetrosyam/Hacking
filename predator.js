@@ -2,7 +2,7 @@
 class Predator extends Parent {
     constructor(x, y) {
        super(x,y)
-        this.energy = 25
+        this.energy = 50
        
     }
     eat() {

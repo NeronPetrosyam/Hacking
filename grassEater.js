@@ -54,12 +54,12 @@ class GrassEater extends Parent {
                 }
             }
 
-            if (this.energy >= 25) {
+            if (this.energy >= 15) {
                 this.mul()
             }
         }
         else if(newCell1) {
-            this.energy-=25
+            this.energy-=20
             var newX = newCell1[0];
             var newY = newCell1[1];
             matrix[newY][newX] = matrix[this.y][this.x]

@@ -2,7 +2,7 @@
 class PredatorEater extends Parent{
     constructor(x, y) {
        super(x,y)
-        this.energy = 8
+        this.energy = 30
        
     }
     
@@ -18,7 +18,7 @@ class PredatorEater extends Parent{
 
             var newPredatorEater = new PredatorEater(newX, newY);
             predatorEaterArr.push(newPredatorEater);
-            this.energy = 8
+            this.energy = 50
         }
     }
 
@@ -42,6 +42,7 @@ class PredatorEater extends Parent{
        ;
         
         var newCell = this.random(3);
+  
         if (newCell) {
             this.energy++
             var newX = newCell[0];
@@ -58,7 +59,7 @@ class PredatorEater extends Parent{
             }
             
 
-            if (this.energy >= 13) {
+            if (this.energy >= 5) {
                 this.mul()
             }
         } else {
