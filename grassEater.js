@@ -1,12 +1,12 @@
 
 class GrassEater extends Parent {
     constructor(x, y) {
-        super(x,y)
+        super(x, y)
         this.energy = 20
     }
 
     mul() {
-        
+
         var newCell = this.random(0);
 
         if (newCell) {
@@ -22,7 +22,7 @@ class GrassEater extends Parent {
 
     move() {
         this.energy--
-        
+
         var newCell = this.random(0);
         if (newCell && this.energy >= 0) {
             var newX = newCell[0];
@@ -58,8 +58,8 @@ class GrassEater extends Parent {
                 this.mul()
             }
         }
-        else if(newCell1) {
-            this.energy-=20
+        else if (newCell1) {
+            this.energy -= 20
             var newX = newCell1[0];
             var newY = newCell1[1];
             matrix[newY][newX] = matrix[this.y][this.x]
@@ -76,11 +76,11 @@ class GrassEater extends Parent {
             if (this.energy >= 20) {
                 this.mul()
             }
-        } 
+        }
         else {
             this.move()
         }
-     
+
     }
     die() {
         matrix[this.y][this.x] = 0

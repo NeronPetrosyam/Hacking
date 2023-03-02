@@ -1,14 +1,14 @@
 
- class Danger extends Parent {
+class Danger extends Parent {
     constructor(x, y) {
-     super(x,y)
+        super(x, y)
         this.multiply = 0
-        
+
     }
 
     mul() {
         this.multiply++;
-        
+
         var newCell = this.random(0);
 
         if (newCell && this.multiply >= 20) {
@@ -21,8 +21,8 @@
             this.multiply = 0;
         }
     }
-   
-    
-    
+
+
+
 
 }

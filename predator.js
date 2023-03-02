@@ -1,13 +1,13 @@
 
 class Predator extends Parent {
     constructor(x, y) {
-       super(x,y)
+        super(x, y)
         this.energy = 50
-       
+
     }
     eat() {
-        
-       
+
+
         var newCell = this.random(2);
         if (newCell) {
             this.energy++
@@ -32,7 +32,7 @@ class Predator extends Parent {
         }
     }
     mul() {
-       
+
         var newCell = this.random(1);
 
         if (newCell) {
@@ -48,7 +48,7 @@ class Predator extends Parent {
 
     move() {
         this.energy--
-      
+
         var newCell = this.random(0);
         if (newCell && this.energy >= 0) {
             var newX = newCell[0];

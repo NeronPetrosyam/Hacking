@@ -1,14 +1,14 @@
 
 
-class Grass extends Parent{
+class Grass extends Parent {
     constructor(x, y) {
-      super(x,y)
+        super(x, y)
         this.multiply = 1
     }
-    
-     
-    
-    
+
+
+
+
     mul() {
         this.multiply++;
         var newCell = this.random(0);
@@ -23,8 +23,8 @@ class Grass extends Parent{
             this.multiply = 0;
         }
     }
-  
-   
-    
-    
+
+
+
+
 }
