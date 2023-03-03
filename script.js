@@ -1,5 +1,30 @@
+var matrix = generate(30, 20, 30, 30, 30, 30, 20)
+
+let socket = io()
+var side = 15;
+let grassArr = []
+let grassEaterArr = []
+let predatorArr = []
+let predatorEaterArr = []
+let dangerArr = []
+let stoneArr = []
+
+var grassButton = document.getElementById('grassButton');
+var grassEaterButton = document.getElementById('grassEaterButton');
+var predatorButton = document.getElementById('predatorButton');
+var predatorEaterButton = document.getElementById('predatorEaterButton');
+var dangerButton = document.getElementById('dangerButton');
+var stoneButton = document.getElementById('stoneButton');
 var weather = document.getElementById("weather")
-function generate(matLen, gr, grEat, pr, prEat, dn) {
+
+var idx = 0;
+const seasons =
+    [{ season: 'Spring', grassColor: 'green', predatorColor: 'red', predatorEaterColor: 'blue', speed: 2 },
+    { season: 'Summer', grassColor: 'lightgreen', predatorColor: 'darkred', predatorEaterColor: 'blue', speed: 4 },
+    { season: 'Autumn', grassColor: 'green', predatorColor: 'red', predatorEaterColor: 'blue', speed: 2 },
+    { season: 'Winter', grassColor: 'white', predatorColor: 'violet', predatorEaterColor: 'blue', speed: 1 }];
+
+function generate(matLen, gr, grEat, pr, prEat, dn, st) {
     let matrix = []
 
     for (let i = 0; i < matLen; i++) {
@@ -45,89 +70,93 @@ function generate(matLen, gr, grEat, pr, prEat, dn) {
             matrix[y][x] = 5
         }
     }
+    for (let i = 0; i < st; i++) {
+        let x = Math.floor(Math.random() * matLen)
+        let y = Math.floor(Math.random() * matLen)
+        if (matrix[y][x] == 0) {
+            matrix[y][x] = 6
+        }
+    }
 
     return matrix
 }
 
 
-var matrix = generate(30, 20, 30, 30, 30, 30)
-
-let socket = io()
-var side = 15;
-let grassArr = []
-let grassEaterArr = []
-let predatorArr = []
-let predatorEaterArr = []
-let dangerArr = []
-
-var grassButton = document.getElementById('grassButton');
-var grassEaterButton = document.getElementById('grassEaterButton');
-var predatorButton = document.getElementById('predatorButton');
-var predatorEaterButton = document.getElementById('predatorEaterButton');
-var dangerButton = document.getElementById('dangerButton');
 
 
 function addGrass() {
-    loop1: for (y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 0) {
-                let gr = new Grass(x, y)
-                grassArr.push(gr)
-                matrix[y][x] = 1
-                break loop1
-            }
-        }
+    const matrixLength = matrix.length;
+    const randomX = Math.round(Math.random() * matrixLength);
+    const randomY = Math.round(Math.random() * matrixLength);
+    if (matrix[randomX][randomY] === 0) {
+        let gr = new Grass(randomX, randomY)
+        grassArr.push(gr)
+        matrix[randomX][randomY] = 1
+    } else {
+        addGrass();
     }
 }
 
 function addGrassEater() {
-    loop1: for (y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 0) {
-                let gr = new GrassEater(x, y)
-                grassEaterArr.push(gr)
-                matrix[x][y] = 2
-                break loop1
-            }
-        }
+    const matrixLength = matrix.length;
+    const randomX = Math.round(Math.random() * matrixLength);
+    const randomY = Math.round(Math.random() * matrixLength);
+    if (matrix[randomX][randomY] === 0) {
+        let gr = new GrassEater(randomX, randomY)
+        grassEaterArr.push(gr)
+        matrix[randomX][randomY] = 2
+    } else {
+        addGrassEater();
     }
-
 }
+
 function addPredator() {
-    loop1: for (y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 0) {
-                let gr = new Predator(x, y)
-                predatorArr.push(gr)
-                matrix[x][y] = 3
-                break loop1
-            }
-        }
+    const matrixLength = matrix.length;
+    const randomX = Math.round(Math.random() * matrixLength);
+    const randomY = Math.round(Math.random() * matrixLength);
+    if (matrix[randomX][randomY] === 0) {
+        let gr = new Predator(randomX, randomY)
+        predatorArr.push(gr)
+        matrix[randomX][randomY] = 3
+    } else {
+        addPredator();
     }
 }
 function addPredatorEater() {
-    loop1: for (y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 0) {
-                let gr = new PredatorEater(x, y)
-                predatorEaterArr.push(gr)
-                matrix[x][y] = 4
-                break loop1
-            }
-        }
+    const matrixLength = matrix.length;
+    const randomX = Math.round(Math.random() * matrixLength);
+    const randomY = Math.round(Math.random() * matrixLength);
+    if (matrix[randomX][randomY] === 0) {
+        let gr = new PredatorEater(randomX, randomY)
+        predatorEaterArr.push(gr)
+        matrix[randomX][randomY] = 4
+    } else {
+        addPredatorEater();
     }
 
 }
 function addDanger() {
-    loop1: for (y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
-            if (matrix[y][x] == 0) {
-                let gr = new Danger(x, y)
-                dangerArr.push(gr)
-                matrix[x][y] = 5
-                break loop1
-            }
-        }
+    const matrixLength = matrix.length;
+    const randomX = Math.round(Math.random() * matrixLength);
+    const randomY = Math.round(Math.random() * matrixLength);
+    if (matrix[randomX][randomY] === 0) {
+        let gr = new Danger(randomX, randomY)
+        dangerArr.push(gr)
+        matrix[randomX][randomY] = 5
+    } else {
+        addDanger();
+    }
+}
+function addStone() {
+    const matrixLength = matrix.length;
+    const randomX = Math.round(Math.random() * matrixLength);
+    const randomY = Math.round(Math.random() * matrixLength);
+    if (matrix[randomX][randomY] === 0) {
+        let gr = new Stone(randomX, randomY)
+        stoneArr.push(gr)
+        matrix[randomX][randomY] = 6
+    } else {
+        addStone();
     }
 }
 
@@ -163,25 +192,24 @@ function setup() {
                 let gr = new Danger(x, y)
                 dangerArr.push(gr)
             }
+            else if (matrix[y][x] == 6) {
+                let gr = new Stone(x, y)
+                stoneArr.push(gr)
+            }
         }
     }
 
 }
 
-var idx = 0;
-const seasons =
-    [{ season: 'spring', grassColor: 'green', predatorColor: 'red', predatorEaterColor: 'blue', speed: 2 },
-    { season: 'summer', grassColor: 'lightgreen', predatorColor: 'darkred', predatorEaterColor: 'blue', speed: 4 },
-    { season: 'autumn', grassColor: 'green', predatorColor: 'red', predatorEaterColor: 'blue', speed: 2 },
-    { season: 'winter', grassColor: 'white', predatorColor: 'violet', predatorEaterColor: 'blue', speed: 1 }];
-// ['spring', 'summer', 'autumn', 'winter'];
+
+
 
 function draw() {
     const { season, grassColor, predatorColor, predatorEaterColor, speed } = seasons[idx];
-    frameRate(10);
+    frameRate(speed);
     if (frameCount % 60 == 0)
         socket.emit('sned data', 'stat');
-    if (frameCount % 32 === 0) {
+    if (frameCount % 328 === 0) {
         idx++;
         if (idx === 4) {
             idx = 0;
@@ -198,7 +226,7 @@ function draw() {
                 fill(grassColor);
             }
             else if (matrix[y][x] == 0) {
-                fill("grey");
+                fill("#9d6e5e");
             }
             else if (matrix[y][x] == 2) {
                 fill("yellow");
@@ -212,6 +240,10 @@ function draw() {
             else if (matrix[y][x] == 5) {
                 fill("black")
             }
+            else if (matrix[y][x] == 6) {
+                fill("grey")
+            }
+
 
 
 
@@ -222,21 +254,21 @@ function draw() {
     }
 
 
-    // for (var i in grassArr) {
-    //     grassArr[i].mul()
-    // }
-    // for (let i in grassEaterArr) (
-    //     grassEaterArr[i].eat()
-    // )
-    // for (let i in predatorArr) (
-    //     predatorArr[i].eat()
-    // )
-    // for (let i in predatorEaterArr) (
-    //     predatorEaterArr[i].eat()
-    // )
-    // for (let i in dangerArr) (
-    //     dangerArr[i].mul()
-    // )
+    for (var i in grassArr) {
+        grassArr[i].mul()
+    }
+    for (let i in grassEaterArr) (
+        grassEaterArr[i].eat()
+    )
+    for (let i in predatorArr) (
+        predatorArr[i].eat()
+    )
+    for (let i in predatorEaterArr) (
+        predatorEaterArr[i].eat()
+    )
+    for (let i in dangerArr) (
+        dangerArr[i].mul()
+    )
 
 
 
