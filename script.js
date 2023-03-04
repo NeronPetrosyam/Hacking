@@ -1,5 +1,5 @@
 var matrix = generate(30, 20, 30, 30, 30, 30, 20)
-
+var clearAll1 = false;
 let socket = io()
 var side = 15;
 let grassArr = []
@@ -9,7 +9,7 @@ let predatorEaterArr = []
 let dangerArr = []
 let stoneArr = []
 
-
+var clearAll2 = document.getElementById('clearAll')
 var grassButton = document.getElementById('grassButton');
 var grassEaterButton = document.getElementById('grassEaterButton');
 var predatorButton = document.getElementById('predatorButton');
@@ -17,57 +17,58 @@ var predatorEaterButton = document.getElementById('predatorEaterButton');
 var dangerButton = document.getElementById('dangerButton');
 var stoneButton = document.getElementById('stoneButton');
 var weather = document.getElementById("weather")
-let toggle = () => {
 
-
-    if (grassButton.style.backgroundColor === "darkcyan") {
-        grassButton.style.backgroundColor = "#3630a3";
-    } else {
-        grassButton.style.backgroundColor = "darkcyan";
-    }
-
-    if (grassEaterButton.style.backgroundColor === "darkcyan") {
-        grassEaterButton.style.backgroundColor = "#3630a3";
-    } else {
-        grassEaterButton.style.backgroundColor = "darkcyan";
-    }
-
-    if (predatorButton.style.backgroundColor === "darkcyan") {
-        predatorButton.style.backgroundColor = "#3630a3";
-    } else {
-        predatorButton.style.backgroundColor = "darkcyan";
-    }
-
-    if (predatorEaterButton.style.backgroundColor === "darkcyan") {
-        predatorEaterButton.style.backgroundColor = "#3630a3";
-    } else {
-        predatorEaterButton.style.backgroundColor = "darkcyan";
-    }
-
-    if (dangerButton.style.backgroundColor === "darkcyan") {
-        dangerButton.style.backgroundColor = "#3630a3";
-    } else {
-        dangerButton.style.backgroundColor = "darkcyan";
-    }
-
-    if (stoneButton.style.backgroundColor === "darkcyan") {
-        stoneButton.style.backgroundColor = "#3630a3";
-    } else {
-        stoneButton.style.backgroundColor = "darkcyan";
-    }
-    if (weather.style.backgroundColor === "darkcyan") {
-        weather.style.backgroundColor = "#3630a3";
-    } else {
-        weather.style.backgroundColor = "darkcyan";
-    }
-}
 
 var idx = 0;
 const seasons =
-    [{ season: 'Spring', grassColor: 'green', predatorColor: 'red', predatorEaterColor: 'blue', speed: 2 },
-    { season: 'Summer', grassColor: 'lightgreen', predatorColor: 'darkred', predatorEaterColor: 'blue', speed: 4 },
-    { season: 'Autumn', grassColor: 'green', predatorColor: 'red', predatorEaterColor: 'blue', speed: 2 },
-    { season: 'Winter', grassColor: 'white', predatorColor: 'violet', predatorEaterColor: 'blue', speed: 1 }];
+    [{ season: 'Spring', grassColor: 'green', predatorColor: 'red', speed: 3 },
+    { season: 'Summer', grassColor: 'lightgreen', predatorColor: 'darkred', speed: 4 },
+    { season: 'Autumn', grassColor: 'green', predatorColor: 'red', speed: 3 },
+    { season: 'Winter', grassColor: 'white', predatorColor: 'violet', speed: 2 }];
+    let toggle = () => {
+
+
+        if (grassButton.style.backgroundColor === "darkcyan") {
+            grassButton.style.backgroundColor = "green";
+        } else {
+            grassButton.style.backgroundColor = "darkcyan";
+        }
+    
+        if (grassEaterButton.style.backgroundColor === "darkcyan") {
+            grassEaterButton.style.backgroundColor = "greenyellow";
+        } else {
+            grassEaterButton.style.backgroundColor = "darkcyan";
+        }
+    
+        if (predatorButton.style.backgroundColor === "darkcyan") {
+            predatorButton.style.backgroundColor = "red";
+        } else {
+            predatorButton.style.backgroundColor = "darkcyan";
+        }
+    
+        if (predatorEaterButton.style.backgroundColor === "darkcyan") {
+            predatorEaterButton.style.backgroundColor ="blue"
+        } else {
+            predatorEaterButton.style.backgroundColor = "darkcyan";
+        }
+    
+        if (dangerButton.style.backgroundColor === "darkcyan") {
+            dangerButton.style.backgroundColor = "black";
+        } else {
+            dangerButton.style.backgroundColor = "darkcyan";
+        }
+    
+        if (stoneButton.style.backgroundColor === "darkcyan") {
+            stoneButton.style.backgroundColor = "grey";
+        } else {
+            stoneButton.style.backgroundColor = "darkcyan";
+        }
+        if (weather.style.backgroundColor === "darkcyan") {
+            weather.style.backgroundColor = "#3630a3";
+        } else {
+            weather.style.backgroundColor = "darkcyan";
+        }
+    }
 
 function generate(matLen, gr, grEat, pr, prEat, dn, st) {
     let matrix = []
@@ -130,6 +131,7 @@ function generate(matLen, gr, grEat, pr, prEat, dn, st) {
 
 
 function addGrass() {
+
     const matrixLength = matrix.length;
     const randomX = Math.round(Math.random() * matrixLength);
     const randomY = Math.round(Math.random() * matrixLength);
@@ -137,6 +139,7 @@ function addGrass() {
         let gr = new Grass(randomX, randomY)
         grassArr.push(gr)
         matrix[randomX][randomY] = 1
+    
     } else {
         addGrass();
     }
@@ -188,6 +191,8 @@ function addDanger() {
         let gr = new Danger(randomX, randomY)
         dangerArr.push(gr)
         matrix[randomX][randomY] = 5
+   clearAll3 = false;
+
     } else {
         addDanger();
     }
@@ -200,18 +205,33 @@ function addStone() {
         let gr = new Stone(randomX, randomY)
         stoneArr.push(gr)
         matrix[randomX][randomY] = 6
+     
     } else {
         addStone();
     }
 }
+function clearAll() {
 
+    for (var y = 0; y < matrix.length; y++) {
+        for (var x = 0; x < matrix[y].length; x++) {
+            fill("#9d6e5e")
+            rect(x * side, y * side, side, side)
+        }
+    }
+    
+   clearAll1 = true;
+   
+} 
+function Refresh(){
+    window.location.reload();
+}
 
+    
 function setup() {
 
     createCanvas(matrix[0].length * side, matrix.length * side);
     createCanvas(450, 450)
     background('grey');
-
 
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
@@ -241,20 +261,24 @@ function setup() {
                 let gr = new Stone(x, y)
                 stoneArr.push(gr)
             }
+            
+          
+            
         }
+    
     }
-
 }
-
 
 
 
 function draw() {
     const { season, grassColor, predatorColor, predatorEaterColor, speed } = seasons[idx];
     frameRate(speed);
-    if (frameCount % 60 == 0)
-        socket.emit('sned data', 'stat');
-    if (frameCount % 328 === 0) {
+    if (frameCount % 60 == 0) {
+
+    }
+
+    if (frameCount % 36 === 0) {
         idx++;
         if (idx === 4) {
             idx = 0;
@@ -262,14 +286,18 @@ function draw() {
     }
     weather.innerHTML = season;
 
+
+if (clearAll1 !== true) {
     for (var y = 0; y < matrix.length; y++) {
         for (var x = 0; x < matrix[y].length; x++) {
 
 
+     
 
             if (matrix[y][x] == 1) {
                 fill(grassColor);
             }
+        
             else if (matrix[y][x] == 0) {
                 fill("#9d6e5e");
             }
@@ -280,7 +308,7 @@ function draw() {
                 fill(predatorColor);
             }
             else if (matrix[y][x] == 4) {
-                fill(predatorEaterColor);
+                fill("blue");
             }
             else if (matrix[y][x] == 5) {
                 fill("black")
@@ -316,5 +344,5 @@ function draw() {
     )
 
 
-
+    }
 }
