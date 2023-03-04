@@ -6,34 +6,49 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>Document</title>
+  
 </head>
 
    <body>
     
-  
-    
  
-   <button type="button" id="grassButton" onclick="addGrass()" style="background: darkcyan;color:white;">addGrass</button>
-   <button type="button" id="grassEaterButton" onclick="addGrassEater()" style="background: darkcyan;color:white;">addgrassEater</button>
-   <button type="button" id="predatorButton" onclick="addPredator()" style="background: darkcyan;color:white;">addPredator</button>
-   <button type="button" id="predatorEaterButton" onclick="addPredatorEater()" style="background: darkcyan;color:white;">addPredatorEater</button>
-   <button type="button" id="dangerButton" onclick="addDanger()" style="background: darkcyan;color:white;">addBlack</button>
-   <button type="button" id="stoneButton" onclick="addStone()" style="background: darkcyan;color:white;">addStone</button>
+      <button type="button" onclick="toggle();">Button style</button>
 
+     
+ <br>
+   <button type="button" id="grassButton" onclick="addGrass()" style="width: 120px ;background: darkcyan;color:white;" >addGrass</button>
+   <a1>Grass Count</a1>
+   <br>
+   <button type="button" id="grassEaterButton" onclick="addGrassEater()" style="width: 120px ;background: darkcyan;color:white;">addGrassEater</button>
+   <a1>GrassEater Count</a1>
+   <br>
+   <button type="button" id="predatorButton" onclick="addPredator()" style="width: 120px ;background: darkcyan;color:white;">addPredator</button>
+   <a1>Predator Count</a1>
+   <br>
+   <button type="button" id="predatorEaterButton" onclick="addPredatorEater()" style="width: 120px ;background: darkcyan;color:white;">addPredatorEater</button>
+   <a1>predatorEater Count</a1>
+  <br>
+   <button type="button" id="dangerButton" onclick="addDanger()" style="width: 120px ;background: darkcyan;color:white;">addDanger</button>
+   <a1>Danger Count</a1>
+   <br>
+   <button type="button" id="stoneButton" onclick="addStone()" style="width: 120px ;background: darkcyan;color:white;">addStone</button>
+   <a1>Stone Count</a1>
+   
+  
 
-
-   <div id="weather" style="height: 20px;width: 50px ;background: darkcyan;color:white ; margin: auto;">Spring</div>
+   <div id="weather" style="width: 120px ;background: darkcyan;color:white;"><a1>Spring</a1></div>
    <script src="/socket.io/socket.io.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.14/p5.js"></script>
    <script src="parent.js"></script>
-   <script src="script.js" style="margin: 200px;"></script>
+   <script src="script.js"></script>
    <script src="grass.js"></script>
    <script src="grassEater.js"></script>
    <script src="danger.js"></script>
    <script src="predator.js"></script>
    <script src="predatorEater.js"></script>
    <script src="stone.js"></script>
-  
+
+
 </body>
 
 </html>

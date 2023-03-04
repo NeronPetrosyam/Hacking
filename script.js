@@ -9,6 +9,7 @@ let predatorEaterArr = []
 let dangerArr = []
 let stoneArr = []
 
+
 var grassButton = document.getElementById('grassButton');
 var grassEaterButton = document.getElementById('grassEaterButton');
 var predatorButton = document.getElementById('predatorButton');
@@ -16,6 +17,50 @@ var predatorEaterButton = document.getElementById('predatorEaterButton');
 var dangerButton = document.getElementById('dangerButton');
 var stoneButton = document.getElementById('stoneButton');
 var weather = document.getElementById("weather")
+let toggle = () => {
+
+
+    if (grassButton.style.backgroundColor === "darkcyan") {
+        grassButton.style.backgroundColor = "#3630a3";
+    } else {
+        grassButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (grassEaterButton.style.backgroundColor === "darkcyan") {
+        grassEaterButton.style.backgroundColor = "#3630a3";
+    } else {
+        grassEaterButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (predatorButton.style.backgroundColor === "darkcyan") {
+        predatorButton.style.backgroundColor = "#3630a3";
+    } else {
+        predatorButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (predatorEaterButton.style.backgroundColor === "darkcyan") {
+        predatorEaterButton.style.backgroundColor = "#3630a3";
+    } else {
+        predatorEaterButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (dangerButton.style.backgroundColor === "darkcyan") {
+        dangerButton.style.backgroundColor = "#3630a3";
+    } else {
+        dangerButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (stoneButton.style.backgroundColor === "darkcyan") {
+        stoneButton.style.backgroundColor = "#3630a3";
+    } else {
+        stoneButton.style.backgroundColor = "darkcyan";
+    }
+    if (weather.style.backgroundColor === "darkcyan") {
+        weather.style.backgroundColor = "#3630a3";
+    } else {
+        weather.style.backgroundColor = "darkcyan";
+    }
+}
 
 var idx = 0;
 const seasons =
@@ -241,7 +286,7 @@ function draw() {
                 fill("black")
             }
             else if (matrix[y][x] == 6) {
-                fill("grey")
+                fill("darkGrey")
             }
 
 
