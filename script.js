@@ -25,50 +25,50 @@ const seasons =
     { season: 'Summer', grassColor: 'lightgreen', predatorColor: 'darkred', speed: 4 },
     { season: 'Autumn', grassColor: 'green', predatorColor: 'red', speed: 3 },
     { season: 'Winter', grassColor: 'white', predatorColor: 'violet', speed: 2 }];
-    let toggle = () => {
+let toggle = () => {
 
 
-        if (grassButton.style.backgroundColor === "darkcyan") {
-            grassButton.style.backgroundColor = "green";
-        } else {
-            grassButton.style.backgroundColor = "darkcyan";
-        }
-    
-        if (grassEaterButton.style.backgroundColor === "darkcyan") {
-            grassEaterButton.style.backgroundColor = "greenyellow";
-        } else {
-            grassEaterButton.style.backgroundColor = "darkcyan";
-        }
-    
-        if (predatorButton.style.backgroundColor === "darkcyan") {
-            predatorButton.style.backgroundColor = "red";
-        } else {
-            predatorButton.style.backgroundColor = "darkcyan";
-        }
-    
-        if (predatorEaterButton.style.backgroundColor === "darkcyan") {
-            predatorEaterButton.style.backgroundColor ="blue"
-        } else {
-            predatorEaterButton.style.backgroundColor = "darkcyan";
-        }
-    
-        if (dangerButton.style.backgroundColor === "darkcyan") {
-            dangerButton.style.backgroundColor = "black";
-        } else {
-            dangerButton.style.backgroundColor = "darkcyan";
-        }
-    
-        if (stoneButton.style.backgroundColor === "darkcyan") {
-            stoneButton.style.backgroundColor = "grey";
-        } else {
-            stoneButton.style.backgroundColor = "darkcyan";
-        }
-        if (weather.style.backgroundColor === "darkcyan") {
-            weather.style.backgroundColor = "#3630a3";
-        } else {
-            weather.style.backgroundColor = "darkcyan";
-        }
+    if (grassButton.style.backgroundColor === "darkcyan") {
+        grassButton.style.backgroundColor = "green";
+    } else {
+        grassButton.style.backgroundColor = "darkcyan";
     }
+
+    if (grassEaterButton.style.backgroundColor === "darkcyan") {
+        grassEaterButton.style.backgroundColor = "greenyellow";
+    } else {
+        grassEaterButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (predatorButton.style.backgroundColor === "darkcyan") {
+        predatorButton.style.backgroundColor = "red";
+    } else {
+        predatorButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (predatorEaterButton.style.backgroundColor === "darkcyan") {
+        predatorEaterButton.style.backgroundColor = "blue"
+    } else {
+        predatorEaterButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (dangerButton.style.backgroundColor === "darkcyan") {
+        dangerButton.style.backgroundColor = "black";
+    } else {
+        dangerButton.style.backgroundColor = "darkcyan";
+    }
+
+    if (stoneButton.style.backgroundColor === "darkcyan") {
+        stoneButton.style.backgroundColor = "grey";
+    } else {
+        stoneButton.style.backgroundColor = "darkcyan";
+    }
+    if (weather.style.backgroundColor === "darkcyan") {
+        weather.style.backgroundColor = "#3630a3";
+    } else {
+        weather.style.backgroundColor = "darkcyan";
+    }
+}
 
 function generate(matLen, gr, grEat, pr, prEat, dn, st) {
     let matrix = []
@@ -139,7 +139,7 @@ function addGrass() {
         let gr = new Grass(randomX, randomY)
         grassArr.push(gr)
         matrix[randomX][randomY] = 1
-    
+
     } else {
         addGrass();
     }
@@ -178,6 +178,7 @@ function addPredatorEater() {
         let gr = new PredatorEater(randomX, randomY)
         predatorEaterArr.push(gr)
         matrix[randomX][randomY] = 4
+
     } else {
         addPredatorEater();
     }
@@ -191,7 +192,7 @@ function addDanger() {
         let gr = new Danger(randomX, randomY)
         dangerArr.push(gr)
         matrix[randomX][randomY] = 5
-   clearAll3 = false;
+        clearAll3 = false;
 
     } else {
         addDanger();
@@ -205,7 +206,7 @@ function addStone() {
         let gr = new Stone(randomX, randomY)
         stoneArr.push(gr)
         matrix[randomX][randomY] = 6
-     
+
     } else {
         addStone();
     }
@@ -218,15 +219,15 @@ function clearAll() {
             rect(x * side, y * side, side, side)
         }
     }
-    
-   clearAll1 = true;
-   
-} 
-function Refresh(){
+
+    clearAll1 = true;
+
+}
+function Refresh() {
     window.location.reload();
 }
 
-    
+
 function setup() {
 
     createCanvas(matrix[0].length * side, matrix.length * side);
@@ -261,21 +262,31 @@ function setup() {
                 let gr = new Stone(x, y)
                 stoneArr.push(gr)
             }
-            
-          
-            
+
+
+
         }
-    
+
     }
 }
 
 
 
-function draw() {
-    const { season, grassColor, predatorColor, predatorEaterColor, speed } = seasons[idx];
-    frameRate(speed);
-    if (frameCount % 60 == 0) {
 
+function draw() {
+    const { season, grassColor, predatorColor, speed } = seasons[idx];
+    frameRate(speed);
+    if (frameCount % 12  == 0) {
+        data = {
+            "frameCount":Math.round(frameCount/60),
+            "grass": grassArr.length,
+            "grassEater": grassEaterArr.length,
+            "predator": predatorArr.length,
+            "predatorEater": predatorEaterArr.length,
+            "danger": dangerArr.length,
+            "stone": stoneArr.length
+        }
+        socket.emit('send data', (data));
     }
 
     if (frameCount % 36 === 0) {
@@ -287,61 +298,61 @@ function draw() {
     weather.innerHTML = season;
 
 
-if (clearAll1 !== true) {
-    for (var y = 0; y < matrix.length; y++) {
-        for (var x = 0; x < matrix[y].length; x++) {
+    if (clearAll1 !== true) {
+        for (var y = 0; y < matrix.length; y++) {
+            for (var x = 0; x < matrix[y].length; x++) {
 
 
-     
 
-            if (matrix[y][x] == 1) {
-                fill(grassColor);
+
+                if (matrix[y][x] == 1) {
+                    fill(grassColor);
+                }
+
+                else if (matrix[y][x] == 0) {
+                    fill("#9d6e5e");
+                }
+                else if (matrix[y][x] == 2) {
+                    fill("yellow");
+                }
+                else if (matrix[y][x] == 3) {
+                    fill(predatorColor);
+                }
+                else if (matrix[y][x] == 4) {
+                    fill("blue");
+                }
+                else if (matrix[y][x] == 5) {
+                    fill("black")
+                }
+                else if (matrix[y][x] == 6) {
+                    fill("darkGrey")
+                }
+
+
+
+
+                rect(x * side, y * side, side, side);
+
+
             }
-        
-            else if (matrix[y][x] == 0) {
-                fill("#9d6e5e");
-            }
-            else if (matrix[y][x] == 2) {
-                fill("yellow");
-            }
-            else if (matrix[y][x] == 3) {
-                fill(predatorColor);
-            }
-            else if (matrix[y][x] == 4) {
-                fill("blue");
-            }
-            else if (matrix[y][x] == 5) {
-                fill("black")
-            }
-            else if (matrix[y][x] == 6) {
-                fill("darkGrey")
-            }
-
-
-
-
-            rect(x * side, y * side, side, side);
-
-
         }
-    }
 
 
-    for (var i in grassArr) {
-        grassArr[i].mul()
-    }
-    for (let i in grassEaterArr) (
-        grassEaterArr[i].eat()
-    )
-    for (let i in predatorArr) (
-        predatorArr[i].eat()
-    )
-    for (let i in predatorEaterArr) (
-        predatorEaterArr[i].eat()
-    )
-    for (let i in dangerArr) (
-        dangerArr[i].mul()
-    )
+        for (var i in grassArr) {
+            grassArr[i].mul()
+        }
+        for (let i in grassEaterArr) (
+            grassEaterArr[i].eat()
+        )
+        for (let i in predatorArr) (
+            predatorArr[i].eat()
+        )
+        for (let i in predatorEaterArr) (
+            predatorEaterArr[i].eat()
+        )
+        for (let i in dangerArr) (
+            dangerArr[i].mul()
+        )
 
 
     }

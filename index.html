@@ -10,10 +10,12 @@
 </head>
 
    <body>
+      
     
  
       <button type="button" onclick="toggle();">Button style</button>
       <button type="button" onclick="Refresh()">Refresh</button>
+      
 
 <button type="button" id="clearAll" onclick="clearAll()">ClearAll</button>     
  <br>
@@ -51,5 +53,20 @@
 
 
 </body>
+<script>
+
+var socket = io()
+
+      function main(){
+         socket.on('show data',(data)=>{
+        
+         })
+      }
+      
+      window.onload = main
+      
+      
+      </script>
+
 
 </html>
